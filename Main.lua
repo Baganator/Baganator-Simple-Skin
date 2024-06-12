@@ -98,7 +98,7 @@ local skinners = {
     frame.icon:SetSize(36, 36)
     frame.icon:ClearAllPoints()
     frame.icon:SetPoint("CENTER")
-    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.8})
+    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.4})
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)
     end

@@ -17,7 +17,7 @@ local backdropInfo = {
   edgeSize = 8,
 }
 
-local color = CreateColor(103/255, 208/255, 224/255)
+local color = CreateColor(0, 0, 0)
 
 local possibleVisuals = {
   "BotLeftCorner", "BotRightCorner", "BottomBorder", "LeftBorder", "RightBorder",
@@ -65,7 +65,7 @@ local function StyleButton(button)
 
   local backdrop = CreateFrame("Frame", nil, button, "BackdropTemplate")
   backdrop:SetBackdrop(backdropInfo)
-  backdrop:SetBackdropColor(color.r, color.g, color.b, 0.8)
+  backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)
   backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   backdrop:SetAllPoints()
   backdrop:SetFrameStrata("BACKGROUND")
@@ -74,11 +74,8 @@ end
 local skinners = {
   ItemButton = function(frame)
     frame.bgrMinimalistHooked = true
-    frame.icon:ClearAllPoints()
-    frame.icon:SetPoint("CENTER")
-    frame.icon:SetSize(34, 34)
     frame.darkBg = frame:CreateTexture(nil, "BACKGROUND")
-    frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.5)
+    frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.8)
     frame.darkBg:SetAllPoints()
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)

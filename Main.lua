@@ -48,7 +48,7 @@ local texCoords = {0.08, 0.92, 0.08, 0.92}
 local function ItemButtonQualityHook(frame)
   if frame.bgrMinimalistHooked then
     frame.IconBorder:SetTexture("Interface/AddOns/Baganator-DarkMinimalist/Assets/minimalist-icon-border")
-    frame:GetNormalTexture():Hide()
+    frame:ClearNormalTexture()
     local c = ITEM_QUALITY_COLORS[quality]
     if c then
       c = c.color
@@ -89,9 +89,16 @@ local skinners = {
   ItemButton = function(frame)
     frame.bgrMinimalistHooked = true
     frame.darkBg = frame:CreateTexture(nil, "BACKGROUND")
-    frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.8)
+    frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.4)
+    frame.darkBg:SetPoint("CENTER")
+    frame.darkBg:SetSize(36, 36)
+    frame.IconBorder:SetSize(36, 36)
+    frame.IconBorder:ClearAllPoints()
+    frame.IconBorder:SetPoint("CENTER")
+    frame.icon:SetSize(36, 36)
+    frame.icon:ClearAllPoints()
+    frame.icon:SetPoint("CENTER")
     table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.8})
-    frame.darkBg:SetAllPoints()
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)
     end

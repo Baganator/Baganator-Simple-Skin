@@ -76,7 +76,9 @@ local function StyleButton(button)
   backdrop:SetAllPoints()
   backdrop:SetFrameStrata("BACKGROUND")
   button:SetScript("OnEnter", function()
-    backdrop:SetBackdropColor(math.min(1, color.r + 0.15), math.min(1, color.g + 0.15), math.min(color.b + 0.15), 0.8)
+    if button:IsEnabled() then
+      backdrop:SetBackdropColor(math.min(1, color.r + 0.15), math.min(1, color.g + 0.15), math.min(color.b + 0.15), 0.8)
+    end
   end)
   button:SetScript("OnLeave", function()
     backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)

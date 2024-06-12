@@ -14,10 +14,16 @@ local backdropInfo = {
   tile = true,
   tileEdge = true,
   tileSize = 32,
-  edgeSize = 8,
+  edgeSize = 6,
+  insets = {left = 1, right = 1, top = 1, bottom = 1},
 }
 
-local color = CreateColor(0, 0, 0)
+local color = CreateColor(0.05, 0.05, 0.05)
+
+local toColor = {
+  backdrops = {},
+  textures = {},
+}
 
 local possibleVisuals = {
   "BotLeftCorner", "BotRightCorner", "BottomBorder", "LeftBorder", "RightBorder",
@@ -55,20 +61,26 @@ local function ItemButtonTextureHook(frame)
     frame.icon:SetTexCoord(unpack(texCoords))
   end
 end
-hooksecurefunc("SetItemButtonQuality", ItemButtonQualityHook)
-hooksecurefunc("SetItemButtonTexture", ItemButtonTextureHook)
 
 local function StyleButton(button)
   button.Left:Hide()
   button.Right:Hide()
   button.Middle:Hide()
+  button:ClearHighlightTexture()
 
   local backdrop = CreateFrame("Frame", nil, button, "BackdropTemplate")
   backdrop:SetBackdrop(backdropInfo)
   backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)
   backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
+  table.insert(toColor.backdrops, {backdrop = backdrop, bgAlpha = 0.5, borderAlpha = 1})
   backdrop:SetAllPoints()
   backdrop:SetFrameStrata("BACKGROUND")
+  button:SetScript("OnEnter", function()
+    backdrop:SetBackdropColor(math.min(1, color.r + 0.15), math.min(1, color.g + 0.15), math.min(color.b + 0.15), 0.8)
+  end)
+  button:SetScript("OnLeave", function()
+    backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)
+  end)
 end
 
 local skinners = {
@@ -76,6 +88,7 @@ local skinners = {
     frame.bgrMinimalistHooked = true
     frame.darkBg = frame:CreateTexture(nil, "BACKGROUND")
     frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.8)
+    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.8})
     frame.darkBg:SetAllPoints()
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)
@@ -96,6 +109,7 @@ local skinners = {
     backdrop:SetBackdrop(backdropInfo)
     backdrop:SetBackdropColor(color.r, color.g, color.b, 0.6)
     backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
+    table.insert(toColor.backdrops, {backdrop = backdrop, bgAlpha = 0.6, borderAlpha = 1})
     backdrop:SetAllPoints()
     backdrop:SetFrameStrata("BACKGROUND")
   end,
@@ -126,8 +140,8 @@ local skinners = {
 if C_AddOns.IsAddOnLoaded("Masque") then
   skinners.ItemButton = function() end
 else
-  hooksecurefunc("SetItemButtonTexture", function(frame)
-  end)
+  hooksecurefunc("SetItemButtonQuality", ItemButtonQualityHook)
+  hooksecurefunc("SetItemButtonTexture", ItemButtonTextureHook)
 end
 
 local function SkinFrame(details)

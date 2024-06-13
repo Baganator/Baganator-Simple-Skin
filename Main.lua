@@ -15,7 +15,15 @@ local backdropInfo = {
   tileEdge = true,
   tileSize = 32,
   edgeSize = 6,
-  insets = {left = 0, right = 0, top = 0, bottom = 0},
+}
+
+local frameBackdropInfo = {
+  bgFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-backgroundfile",
+  edgeFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-edgefile",
+  tile = true,
+  tileEdge = true,
+  tileSize = 32,
+  edgeSize = 9,
 }
 
 --local color = CreateColor(65/255, 137/255, 64/255) -- green
@@ -131,13 +139,22 @@ local skinners = {
   Button = function(button)
     StyleButton(button)
   end,
-  ButtonFrame = function(frame)
+  ButtonFrame = function(frame, tags)
     RemoveFrameTextures(frame)
     Mixin(frame, BackdropTemplateMixin)
-    frame:SetBackdrop(backdropInfo)
+    frame:SetBackdrop(frameBackdropInfo)
     frame:SetBackdropColor(color.r, color.g, color.b, 0.7)
-    frame:SetBackdropBorderColor(color.r, color.g, color.b, 1)
-    table.insert(toColor.backdrops, {backdrop = frame, bgAlpha = 0.7, borderAlpha = 1})
+    local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+    frame:SetBackdropBorderColor(r, g, b, 1)
+    table.insert(toColor.backdrops, {backdrop = frame, bgAlpha = 0.7, borderAlpha = 1, borderLightened = 0.3})
+
+    if tags.backpack then
+      frame.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+    elseif tags.bank then
+      frame.Character.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+    elseif tags.guild then
+      frame.ToggleTabTextButton:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+    end
   end,
   SearchBox = function(frame)
   end,

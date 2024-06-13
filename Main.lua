@@ -75,7 +75,7 @@ local function StyleButton(button)
   local color = CreateColor(Baganator_Minimalist_Lighten(color.r, color.g, color.b, -0.15))
   button:SetBackdropColor(color.r, color.g, color.b, 0.5)
   button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
-  table.insert(toColor.backdrops, {backdrop = button, bgAlpha = 0.5, borderAlpha = 1})
+  table.insert(toColor.backdrops, {backdrop = button, bgAlpha = 0.5, borderAlpha = 1, lightened = -0.15})
   button:HookScript("OnEnter", function()
     if button:IsEnabled() then
       local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
@@ -117,7 +117,7 @@ local skinners = {
     frame.darkBg:SetColorTexture(r, g, b, 0.3)
     frame.darkBg:SetPoint("CENTER")
     frame.darkBg:SetSize(36, 36)
-    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.3})
+    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.3, lightened = -0.1})
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)
     end

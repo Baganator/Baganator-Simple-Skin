@@ -68,21 +68,39 @@ local function StyleButton(button)
   button.Middle:Hide()
   button:ClearHighlightTexture()
 
-  local backdrop = CreateFrame("Frame", nil, button, "BackdropTemplate")
-  backdrop:SetBackdrop(backdropInfo)
-  backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)
-  backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
-  table.insert(toColor.backdrops, {backdrop = backdrop, bgAlpha = 0.5, borderAlpha = 1})
-  backdrop:SetPoint("TOPLEFT", 2, 0)
-  backdrop:SetPoint("BOTTOMRIGHT", -2, 0)
-  backdrop:SetFrameStrata("BACKGROUND")
+  Mixin(button, BackdropTemplateMixin)
+  button:SetBackdrop(backdropInfo)
+  button:SetBackdropColor(color.r, color.g, color.b, 0.5)
+  button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
+  table.insert(toColor.backdrops, {backdrop = button, bgAlpha = 0.5, borderAlpha = 1})
   button:HookScript("OnEnter", function()
     if button:IsEnabled() then
-      backdrop:SetBackdropColor(math.min(1, color.r + 0.15), math.min(1, color.g + 0.15), math.min(color.b + 0.15), 0.8)
+      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+      button:SetBackdropColor(r, g, b, 0.8)
+      button:SetBackdropBorderColor(r, g, b, 1)
+    end
+  end)
+  button:HookScript("OnMouseDown", function()
+    if button:IsEnabled() then
+      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.2)
+      button:SetBackdropColor(r, g, b, 0.8)
+      button:SetBackdropBorderColor(r, g, b, 1)
+    end
+  end)
+  button:HookScript("OnMouseUp", function()
+    if button:IsEnabled() and button:IsMouseOver() then
+      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+      button:SetBackdropColor(r, g, b, 0.8)
+      button:SetBackdropBorderColor(r, g, b, 1)
     end
   end)
   button:HookScript("OnLeave", function()
-    backdrop:SetBackdropColor(color.r, color.g, color.b, 0.5)
+    button:SetBackdropColor(color.r, color.g, color.b, 0.5)
+    button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
+  end)
+  button:HookScript("OnDisable", function()
+    button:SetBackdropColor(color.r, color.g, color.b, 0.5)
+    button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   end)
 end
 
@@ -109,13 +127,11 @@ local skinners = {
   end,
   ButtonFrame = function(frame)
     RemoveFrameTextures(frame)
-    local backdrop = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-    backdrop:SetBackdrop(backdropInfo)
-    backdrop:SetBackdropColor(color.r, color.g, color.b, 0.7)
-    backdrop:SetBackdropBorderColor(color.r, color.g, color.b, 1)
-    table.insert(toColor.backdrops, {backdrop = backdrop, bgAlpha = 0.7, borderAlpha = 1})
-    backdrop:SetAllPoints()
-    backdrop:SetFrameStrata("BACKGROUND")
+    Mixin(frame, BackdropTemplateMixin)
+    frame:SetBackdrop(backdropInfo)
+    frame:SetBackdropColor(color.r, color.g, color.b, 0.7)
+    frame:SetBackdropBorderColor(color.r, color.g, color.b, 1)
+    table.insert(toColor.backdrops, {backdrop = frame, bgAlpha = 0.7, borderAlpha = 1})
   end,
   SearchBox = function(frame)
   end,

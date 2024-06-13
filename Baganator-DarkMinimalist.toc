@@ -4,4 +4,5 @@
 ## Author: plusmouse
 ## RequiredDeps: Baganator
 
+Colors.lua
 Main.lua

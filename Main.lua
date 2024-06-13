@@ -163,7 +163,7 @@ local skinners = {
   end,
 }
 
-if C_AddOns.IsAddOnLoaded("Masque") then
+if C_AddOns.IsAddOnLoaded("Masque") or not Baganator.Config.Get(Baganator.Config.Options.EMPTY_SLOT_BACKGROUND) then
   skinners.ItemButton = function() end
 else
   hooksecurefunc("SetItemButtonQuality", ItemButtonQualityHook)

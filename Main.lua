@@ -79,7 +79,6 @@ local function StyleButton(button)
   button:HookScript("OnEnter", function()
     if button:IsEnabled() then
       local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
-      print("out", r, g, b)
       button:SetBackdropColor(r, g, b, 0.8)
       button:SetBackdropBorderColor(r, g, b, 1)
     end

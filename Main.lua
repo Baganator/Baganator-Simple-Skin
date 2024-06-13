@@ -18,6 +18,7 @@ local backdropInfo = {
   insets = {left = 0, right = 0, top = 0, bottom = 0},
 }
 
+--local color = CreateColor(65/255, 137/255, 64/255)
 local color = CreateColor(0.05, 0.05, 0.05)
 
 local toColor = {
@@ -76,6 +77,7 @@ local function StyleButton(button)
   button:HookScript("OnEnter", function()
     if button:IsEnabled() then
       local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+      print("out", r, g, b)
       button:SetBackdropColor(r, g, b, 0.8)
       button:SetBackdropBorderColor(r, g, b, 1)
     end
@@ -99,8 +101,10 @@ local function StyleButton(button)
     button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   end)
   button:HookScript("OnDisable", function()
+    button:SetBackdropColor(color.r, color.g, color.b, 0.1)
+  end)
+  button:HookScript("OnEnable", function()
     button:SetBackdropColor(color.r, color.g, color.b, 0.5)
-    button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   end)
 end
 
@@ -108,10 +112,11 @@ local skinners = {
   ItemButton = function(frame)
     frame.bgrMinimalistHooked = true
     frame.darkBg = frame:CreateTexture(nil, "BACKGROUND")
-    frame.darkBg:SetColorTexture(color.r, color.g, color.b, 0.4)
+    local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, -0.1)
+    frame.darkBg:SetColorTexture(r, g, b, 0.3)
     frame.darkBg:SetPoint("CENTER")
     frame.darkBg:SetSize(36, 36)
-    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.4})
+    table.insert(toColor.textures, {texture = frame.darkBg, alpha = 0.3})
     if frame.SetItemButtonQuality then
       hooksecurefunc(frame, "SetItemButtonQuality", ItemButtonQualityHook)
     end

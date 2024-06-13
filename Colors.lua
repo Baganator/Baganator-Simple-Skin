@@ -28,10 +28,10 @@ local function ToHSL(r, g, b)
   return h, s, l
 end
 
-local function FromHSL(h, s, l)
-  c = (1 - math.abs(2 * l -1)) * s
+local function FromHSL_Prev(h, s, l)
+  c = (1 - math.abs(2 * l - 1)) * s
   h_dash = h / 60
-  x = c * ( 1 - math.max(h_dash % 2 - 1))
+  x = c * ( 1 - math.abs(h_dash % 2 - 1))
   m = l - c / 2
   if h < 1 then
     return c + m, x + m, 0 + m
@@ -41,11 +41,20 @@ local function FromHSL(h, s, l)
     return 0 + m, c + m, x + m
   elseif h < 4 then
     return 0 + m, x + m, c + m
-  elseif h< 5 then
+  elseif h < 5 then
     return x + m, 0 + m, c + m
   else
     return c + m, 0 + m, x + m
   end
+end
+
+local function FromHSL(h, s, l)
+  local function f(n)
+    local k = (n + h/30) % 12
+    local a = s * math.min(l, 1-l)
+    return l - a * math.max(-1, math.min(k - 3, 9 - k, 1))
+  end
+  return f(0), f(8), f(4)
 end
 
 function Baganator_Minimalist_Lighten(r, g, b, shift)

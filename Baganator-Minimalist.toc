@@ -1,5 +1,5 @@
 ## Interface: 11502, 40400, 100207, 110000
-## Title: Baganator (Dark Minimalist Skin)
+## Title: Baganator (Minimalist Skin)
 ## Version: @project-version@
 ## Author: plusmouse
 ## RequiredDeps: Baganator

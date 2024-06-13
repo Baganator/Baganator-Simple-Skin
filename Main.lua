@@ -9,8 +9,8 @@ end
 Baganator.Constants.ButtonFrameOffset = 0
 
 local backdropInfo = {
-  bgFile = "Interface/AddOns/Baganator-DarkMinimalist/Assets/minimalist-backgroundfile",
-  edgeFile = "Interface/AddOns/Baganator-DarkMinimalist/Assets/minimalist-edgefile",
+  bgFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-backgroundfile",
+  edgeFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-edgefile",
   tile = true,
   tileEdge = true,
   tileSize = 32,
@@ -18,8 +18,9 @@ local backdropInfo = {
   insets = {left = 0, right = 0, top = 0, bottom = 0},
 }
 
---local color = CreateColor(65/255, 137/255, 64/255)
-local color = CreateColor(0.05, 0.05, 0.05)
+--local color = CreateColor(65/255, 137/255, 64/255) -- green
+--local color = CreateColor(65/255, 138/255, 180/255) -- blue
+local color = CreateColor(0.05, 0.05, 0.05) -- black
 
 local toColor = {
   backdrops = {},
@@ -46,14 +47,14 @@ local function RemoveFrameTextures(frame)
 end
 
 local texCoords = {0.08, 0.92, 0.08, 0.92}
-local function ItemButtonQualityHook(frame)
+local function ItemButtonQualityHook(frame, quality)
   if frame.bgrMinimalistHooked then
-    frame.IconBorder:SetTexture("Interface/AddOns/Baganator-DarkMinimalist/Assets/minimalist-icon-border")
+    frame.IconBorder:SetTexture("Interface/AddOns/Baganator-Minimalist/Assets/minimalist-icon-border")
     frame:ClearNormalTexture()
     local c = ITEM_QUALITY_COLORS[quality]
     if c then
-      c = c.color
       frame.IconBorder:SetVertexColor(c.r, c.g, c.b)
+      frame.IconBorder:Show()
     end
   end
 end
@@ -71,6 +72,7 @@ local function StyleButton(button)
 
   Mixin(button, BackdropTemplateMixin)
   button:SetBackdrop(backdropInfo)
+  local color = CreateColor(Baganator_Minimalist_Lighten(color.r, color.g, color.b, -0.15))
   button:SetBackdropColor(color.r, color.g, color.b, 0.5)
   button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   table.insert(toColor.backdrops, {backdrop = button, bgAlpha = 0.5, borderAlpha = 1})

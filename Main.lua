@@ -149,11 +149,11 @@ local skinners = {
     table.insert(toColor.backdrops, {backdrop = frame, bgAlpha = 0.7, borderAlpha = 1, borderLightened = 0.3})
 
     if tags.backpack then
-      frame.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+      frame.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 0.5, -1)
     elseif tags.bank then
-      frame.Character.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+      frame.Character.TopButtons[1]:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 0.5, -1)
     elseif tags.guild then
-      frame.ToggleTabTextButton:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 2, -1)
+      frame.ToggleTabTextButton:SetPoint("TOPLEFT", Baganator.Constants.ButtonFrameOffset + 0.5, -1)
     end
   end,
   SearchBox = function(frame)

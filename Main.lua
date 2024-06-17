@@ -9,8 +9,8 @@ end
 Baganator.Constants.ButtonFrameOffset = 0
 
 local backdropInfo = {
-  bgFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-backgroundfile",
-  edgeFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-edgefile",
+  bgFile = "Interface/AddOns/Baganator-Simple/Assets/minimalist-backgroundfile",
+  edgeFile = "Interface/AddOns/Baganator-Simple/Assets/minimalist-edgefile",
   tile = true,
   tileEdge = true,
   tileSize = 32,
@@ -18,8 +18,8 @@ local backdropInfo = {
 }
 
 local frameBackdropInfo = {
-  bgFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-backgroundfile",
-  edgeFile = "Interface/AddOns/Baganator-Minimalist/Assets/minimalist-edgefile",
+  bgFile = "Interface/AddOns/Baganator-Simple/Assets/minimalist-backgroundfile",
+  edgeFile = "Interface/AddOns/Baganator-Simple/Assets/minimalist-edgefile",
   tile = true,
   tileEdge = true,
   tileSize = 32,
@@ -56,8 +56,8 @@ end
 
 local texCoords = {0.08, 0.92, 0.08, 0.92}
 local function ItemButtonQualityHook(frame, quality)
-  if frame.bgrMinimalistHooked then
-    frame.IconBorder:SetTexture("Interface/AddOns/Baganator-Minimalist/Assets/minimalist-icon-border")
+  if frame.bgrSimpleHooked then
+    frame.IconBorder:SetTexture("Interface/AddOns/Baganator-Simple/Assets/minimalist-icon-border")
     frame:ClearNormalTexture()
     local c = ITEM_QUALITY_COLORS[quality]
     if c then
@@ -67,7 +67,7 @@ local function ItemButtonQualityHook(frame, quality)
   end
 end
 local function ItemButtonTextureHook(frame)
-  if frame.bgrMinimalistHooked then
+  if frame.bgrSimpleHooked then
     frame.icon:SetTexCoord(unpack(texCoords))
   end
 end
@@ -80,27 +80,27 @@ local function StyleButton(button)
 
   Mixin(button, BackdropTemplateMixin)
   button:SetBackdrop(backdropInfo)
-  local color = CreateColor(Baganator_Minimalist_Lighten(color.r, color.g, color.b, -0.20))
+  local color = CreateColor(Baganator_Simple_Lighten(color.r, color.g, color.b, -0.20))
   button:SetBackdropColor(color.r, color.g, color.b, 0.5)
   button:SetBackdropBorderColor(color.r, color.g, color.b, 1)
   table.insert(toColor.backdrops, {backdrop = button, bgAlpha = 0.5, borderAlpha = 1, lightened = -0.20})
   button:HookScript("OnEnter", function()
     if button:IsEnabled() then
-      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+      local r, g, b = Baganator_Simple_Lighten(color.r, color.g, color.b, 0.3)
       button:SetBackdropColor(r, g, b, 0.8)
       button:SetBackdropBorderColor(r, g, b, 1)
     end
   end)
   button:HookScript("OnMouseDown", function()
     if button:IsEnabled() then
-      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.2)
+      local r, g, b = Baganator_Simple_Lighten(color.r, color.g, color.b, 0.2)
       button:SetBackdropColor(r, g, b, 0.8)
       button:SetBackdropBorderColor(r, g, b, 1)
     end
   end)
   button:HookScript("OnMouseUp", function()
     if button:IsEnabled() and button:IsMouseOver() then
-      local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+      local r, g, b = Baganator_Simple_Lighten(color.r, color.g, color.b, 0.3)
       button:SetBackdropColor(r, g, b, 0.8)
       button:SetBackdropBorderColor(r, g, b, 1)
     end
@@ -119,9 +119,9 @@ end
 
 local skinners = {
   ItemButton = function(frame)
-    frame.bgrMinimalistHooked = true
+    frame.bgrSimpleHooked = true
     frame.darkBg = frame:CreateTexture(nil, "BACKGROUND")
-    local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, -0.2)
+    local r, g, b = Baganator_Simple_Lighten(color.r, color.g, color.b, -0.2)
     frame.darkBg:SetColorTexture(r, g, b, 0.3)
     frame.darkBg:SetPoint("CENTER")
     frame.darkBg:SetSize(36, 36)
@@ -144,7 +144,7 @@ local skinners = {
     Mixin(frame, BackdropTemplateMixin)
     frame:SetBackdrop(frameBackdropInfo)
     frame:SetBackdropColor(color.r, color.g, color.b, 0.7)
-    local r, g, b = Baganator_Minimalist_Lighten(color.r, color.g, color.b, 0.3)
+    local r, g, b = Baganator_Simple_Lighten(color.r, color.g, color.b, 0.3)
     frame:SetBackdropBorderColor(r, g, b, 1)
     table.insert(toColor.backdrops, {backdrop = frame, bgAlpha = 0.7, borderAlpha = 1, borderLightened = 0.3})
 

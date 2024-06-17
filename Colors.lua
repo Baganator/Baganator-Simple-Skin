@@ -57,7 +57,7 @@ local function FromHSL(h, s, l)
   return f(0), f(8), f(4)
 end
 
-function Baganator_Minimalist_Lighten(r, g, b, shift)
+function Baganator_Simple_Lighten(r, g, b, shift)
   local h, s, l = ToHSL(r, g, b)
   l = math.max(0, math.min(1, l + shift))
 

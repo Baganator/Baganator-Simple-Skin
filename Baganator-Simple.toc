@@ -1,5 +1,5 @@
 ## Interface: 11502, 40400, 100207, 110000
-## Title: Baganator (Minimalist Skin)
+## Title: Baganator (Simple Skin)
 ## Version: @project-version@
 ## Author: plusmouse
 ## RequiredDeps: Baganator
